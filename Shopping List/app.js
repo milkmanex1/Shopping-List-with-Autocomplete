@@ -4,6 +4,7 @@
 //There is a autocomplete pretty good code by Coding Nepal(bookmarked)
 
 //the async keyword makes the function return a promise
+//Test blah
 const getSearches = async (userInput) => {
   const response = await fetch(
     `https://api.frontendeval.com/fake/food/${userInput}`
