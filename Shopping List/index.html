@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping List</title>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <!-- styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="title">
+        <h3>My Shopping List</h3>
+        <button class="test" onclick="getSearches()">Test Button</button>
+      </div>
+      <form class="input">
+        <input class="input-text" type="text" placeholder="eg. eggs" />
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+      <div class="dropdown">
+        <!-- <ul>
+          <li>Eggs</li>
+          <li>Edamame</li>
+          <li>Edible Fruits</li>
+          <li>Escargot</li>
+          <li>Eel</li>
+        </ul> -->
+      </div>
+
+      <div class="item-container">
+        <!---single item-->
+        <!-- <div class="item">
+          <div class="left">
+            <div class="check">
+              <i class="fa-thin fa-square"></i>
+            </div>
+            <div class="name">Eggs</div>
+          </div>
+          <div class="buttons">
+            <div class="edit-btn">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <div class="delete-btn"><i class="fa-solid fa-trash"></i></div>
+          </div>
+        </div> -->
+      </div>
+      <!----Clear All Button--->
+      <div class="clear-btn">Clear Items</div>
+    </div>
+
+    <!-- javascript -->
+    <script src="app.js"></script>
+  </body>
+</html>

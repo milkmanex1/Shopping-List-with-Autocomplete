@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: bisque;
+}
+.wrapper {
+  display: grid;
+  place-items: center;
+}
+.title {
+  margin-top: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 1rem;
+}
+/* *---------------Input and submit---------------- */
+.input {
+  width: 50vw;
+  font-size: 1rem;
+  display: flex;
+  justify-content: 1;
+}
+.input-text {
+  width: 100%;
+  padding-left: 0.5rem;
+}
+.submit-btn {
+  padding: 0.5rem;
+  border: 1px solid blue;
+  cursor: pointer;
+  background-color: aqua;
+}
+/* *---------------Dropdown---------------- */
+.dropdown {
+  width: 50vw;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid burlywood;
+  display: none;
+}
+.dropdown ul {
+  list-style-type: none;
+}
+.dropdown li {
+  padding: 10px;
+  padding-left: 15px;
+
+  cursor: pointer;
+}
+.dropdown li:hover {
+  background-color: rgb(255, 214, 220);
+}
+.show {
+  display: block;
+}
+.active {
+  background-color: dodgerblue !important;
+  color: white;
+}
+/* *---------------Item Container---------------- */
+.item-container {
+  margin-top: 1rem;
+  width: 50vw;
+}
+.name {
+  display: grid;
+  place-items: center;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.2rem;
+}
+.left {
+  display: flex;
+}
+.check {
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 0.2rem;
+}
+.buttons {
+  display: flex;
+}
+.buttons i {
+  cursor: pointer;
+  padding: 0.2rem;
+}
+.fa-pen-to-square {
+  color: rgb(42, 196, 40);
+}
+.fa-trash {
+  color: rgb(173, 13, 13);
+}
+.clear-btn {
+  margin-top: 1rem;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  /* border: 1px solid red; */
+  cursor: pointer;
+  width: 50vw;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
