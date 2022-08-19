@@ -5,6 +5,7 @@
 
 //the async keyword makes the function return a promise
 //Test blah
+//Test change again
 const getSearches = async (userInput) => {
   const response = await fetch(
     `https://api.frontendeval.com/fake/food/${userInput}`
