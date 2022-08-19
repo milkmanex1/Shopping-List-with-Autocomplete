@@ -1,11 +1,11 @@
+// import { getSearches } from "./autocomplete.js";
+
 //This is like the usual grocery list app
 //extra functions: checkbox to cross out?
 //Autocomplete
 //There is a autocomplete pretty good code by Coding Nepal(bookmarked)
 
 //the async keyword makes the function return a promise
-//Test blah
-//Test change again
 const getSearches = async (userInput) => {
   const response = await fetch(
     `https://api.frontendeval.com/fake/food/${userInput}`
@@ -52,7 +52,7 @@ input.addEventListener("keyup", (e) => {
     }
   }
 });
-//! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result
+//! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result. Enter will simulate a click.
 input.addEventListener("keydown", (e) => {
   let results;
   //if there is a dropdown, get the dropdown results
@@ -74,6 +74,7 @@ input.addEventListener("keydown", (e) => {
   //if enter key is pressed
   else if (e.keyCode == 13) {
     e.preventDefault();
+
     //if user has already selected and there is no more dropdown, submit the item
     if (!dropdown.classList.contains("show")) {
       submitBtn.click();
@@ -119,24 +120,32 @@ function renderResults(results) {
   //But When we createListItem, we want each created items to stay
   let content = results
     .map((item) => {
-      return `<li class="dropdown-results" onclick="selectItem(this)">${item}</li>`;
+      return `<li class="dropdown-results">${item}</li>`;
     })
     .join("");
 
   dropdown.classList.add("show");
   //plug it back into the DOM
   dropdown.innerHTML = `<ul>${content}<ul>`;
-  //   console.log("results rendered again");
+  //*Add event listeners to the results
+  const items = document.querySelectorAll(".dropdown-results");
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      selectItem(item.innerHTML);
+    });
+  });
 }
+
 //When user clicks the result
-function selectItem(e) {
-  const item = e.innerHTML;
+function selectItem(item) {
   input.value = item;
   //close the dropdown
   dropdown.classList.remove("show");
   //put the focus on the input field, so you press enter then will submit the item
   input.focus();
 }
+
+//**--------------------------------End of autocomplete functions--------------------------------
 
 function addItem(e) {
   //we get the input, createELement, display it in html using element.innerHTML
@@ -214,7 +223,7 @@ function removeFromLocalStorage(id) {
 }
 function setupItems() {
   const localItems = JSON.parse(localStorage.getItem("myList"));
-  if (localItems.length > 0) {
+  if (localItems?.length > 0) {
     localItems.forEach((item) => {
       createListItem(item.id, item.name);
     });
