@@ -19,6 +19,7 @@ body {
 /* *---------------Input and submit---------------- */
 .input {
   width: 50vw;
+  min-width: 10rem;
   font-size: 1rem;
   display: flex;
   justify-content: 1;
@@ -36,6 +37,7 @@ body {
 /* *---------------Dropdown---------------- */
 .dropdown {
   width: 50vw;
+  min-width: 10rem;
   background-color: white;
   border-radius: 0 0 10px 10px;
   border: 1px solid burlywood;
@@ -64,6 +66,7 @@ body {
 .item-container {
   margin-top: 1rem;
   width: 50vw;
+  min-width: 10rem;
 }
 .name {
   display: grid;
@@ -106,4 +109,3 @@ body {
   padding: 5px;
   border-radius: 5px;
 }
-
