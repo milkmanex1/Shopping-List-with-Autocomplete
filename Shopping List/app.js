@@ -1,4 +1,8 @@
-import { getDropdown, navigateDropdown } from "./autocomplete.js";
+import {
+  getDropdown,
+  navigateDropdown,
+  changeCurrentFocus,
+} from "./autocomplete.js";
 
 //This is like the usual grocery list app
 //extra functions: checkbox to cross out?
@@ -9,18 +13,21 @@ import { getDropdown, navigateDropdown } from "./autocomplete.js";
 const input = document.querySelector(".input-text");
 const submitBtn = document.querySelector(".submit-btn");
 const dropdown = document.querySelector(".dropdown");
+const clearBtn = document.querySelector(".clear-btn");
 
 //This is the direct parent element in the DOM containing all the items in the list
 const itemContainer = document.querySelector(".item-container");
 //edit
 let editFlag = false;
 let editID = "";
-//currentFocus, used in the autocomplete dropdown
-let currentFocus = -1;
+let editElement;
+
 //******---------Event Listeners ************/
 submitBtn.addEventListener("click", addItem);
 //load items
 window.addEventListener("DOMContentLoaded", setupItems);
+//clear Items
+clearBtn.addEventListener("click", clearItems);
 
 //!When user types in to the input field, getSearches and open the dropdown results
 input.addEventListener("keyup", (e) => {
@@ -28,7 +35,9 @@ input.addEventListener("keyup", (e) => {
 });
 //! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result. Enter will simulate a click.
 input.addEventListener("keydown", (e) => {
-  navigateDropdown(e);
+  if (dropdown.classList.contains("show")) {
+    navigateDropdown(e);
+  }
 });
 
 //**--------------------------------End of autocomplete functions--------------------------------
@@ -42,6 +51,11 @@ function addItem(e) {
   if (item && !editFlag) {
     createListItem(id, item);
     addToLocalStorage(id, item);
+    setBackToDefault();
+  }
+  if (item && editFlag) {
+    editElement.innerHTML = item;
+    editLocalStorage(editID, item);
     setBackToDefault();
   }
 }
@@ -84,11 +98,34 @@ function deleteItem(e) {
   const id = item.dataset.id;
   removeFromLocalStorage(id);
 }
-function editItem(e) {}
+function editItem(e) {
+  //this element has the data-id property
+  const item = e.currentTarget.parentElement.parentElement;
+  const itemName = item.firstElementChild.lastElementChild.innerHTML;
+  //this element just has the name of the item
+  editElement = item.firstElementChild.lastElementChild;
 
+  //write the itemName on the input field
+  input.value = itemName;
+  input.focus();
+  editFlag = true;
+  editID = item.dataset.id;
+
+  submitBtn.textContent = "edit";
+}
+function clearItems() {
+  //remove the items in DOM
+  itemContainer.innerHTML = "";
+  //remove the items in localStorage
+  localStorage.removeItem("myList");
+}
 function setBackToDefault() {
   input.value = "";
   dropdown.classList.remove("show");
+  editFlag = false;
+  editID = "";
+  submitBtn.textContent = "submit";
+  changeCurrentFocus(-1);
 }
 function addToLocalStorage(id, item) {
   const newItem = { id: id, name: item };
@@ -97,6 +134,17 @@ function addToLocalStorage(id, item) {
     ? JSON.parse(localStorage.getItem("myList"))
     : [];
   items.push(newItem);
+  localStorage.setItem("myList", JSON.stringify(items));
+}
+function editLocalStorage(id, newItem) {
+  let items = getLocalStorage();
+  //if id matches, change the item to the newItem
+  items = items.map((item) => {
+    if (item.id === id) {
+      item.value = newItem;
+    }
+    return item;
+  });
   localStorage.setItem("myList", JSON.stringify(items));
 }
 function removeFromLocalStorage(id) {
@@ -115,7 +163,6 @@ function setupItems() {
     });
   }
 }
-function editLocalStorage() {}
 function getLocalStorage() {
   return localStorage.getItem("myList")
     ? JSON.parse(localStorage.getItem("myList"))

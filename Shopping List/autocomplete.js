@@ -4,7 +4,12 @@ const dropdown = document.querySelector(".dropdown");
 const input = document.querySelector(".input-text");
 const submitBtn = document.querySelector(".submit-btn");
 
+export const changeCurrentFocus = (newValue) => {
+  currentFocus = newValue;
+};
+
 //!When user types in to the input field, getSearches and open the dropdown results
+
 export const getDropdown = (e) => {
   if (![37, 38, 39, 40, 13].includes(e.keyCode)) {
     let results = [];
@@ -25,7 +30,7 @@ export const getDropdown = (e) => {
     }
   }
 };
-//! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result. Enter will simulate a click.
+//! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result. Enter will simulate a click. Escape closes the dropdown
 export const navigateDropdown = (e) => {
   let results;
   //if there is a dropdown, get the dropdown results
@@ -34,9 +39,11 @@ export const navigateDropdown = (e) => {
     // console.log("The results are: ");
     // console.log(results);
   }
+
   //if down arrow key pressed
   if (e.keyCode == 40) {
     currentFocus++;
+
     addActive(results);
   }
   //if up arrow key pressed
@@ -126,4 +133,14 @@ function selectItem(item) {
   dropdown.classList.remove("show");
   //put the focus on the input field, so you press enter then will submit the item
   input.focus();
+}
+
+function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
 }

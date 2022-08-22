@@ -38,10 +38,12 @@ body {
 .dropdown {
   width: 50vw;
   min-width: 10rem;
+  max-height: 50vh;
   background-color: white;
   border-radius: 0 0 10px 10px;
   border: 1px solid burlywood;
   display: none;
+  overflow-y: scroll;
 }
 .dropdown ul {
   list-style-type: none;
