@@ -31,7 +31,8 @@ clearBtn.addEventListener("click", clearItems);
 
 //!When user types in to the input field, getSearches and open the dropdown results
 input.addEventListener("keyup", (e) => {
-  getDropdown(e);
+  //getDropdown(e);
+  getDebounceDropdown(e);
 });
 //! User can use arrow keys to navigate dropdown results. Add an 'Active' class to the selected result. Enter will simulate a click.
 input.addEventListener("keydown", (e) => {
@@ -77,15 +78,17 @@ function createListItem(id, item) {
 </div>
 <div class="buttons">
   <div class="edit-btn">
-    <i class="fa-solid fa-pen-to-square"></i>
+    <i class="fa-solid fa-pen-to-square" title="edit"></i>
   </div>
-  <div class="delete-btn"><i class="fa-solid fa-trash"></i></div>
+  <div class="delete-btn"><i class="fa-solid fa-trash" title="delete"></i></div>
+  
 </div>`;
 
   const editBtn = element.querySelector(".edit-btn");
   const deleteBtn = element.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", deleteItem);
   editBtn.addEventListener("click", editItem);
+
   itemContainer.appendChild(element);
 }
 
@@ -113,6 +116,7 @@ function editItem(e) {
 
   submitBtn.textContent = "edit";
 }
+function editQuantity(e) {}
 function clearItems() {
   //remove the items in DOM
   itemContainer.innerHTML = "";
@@ -167,6 +171,22 @@ function getLocalStorage() {
   return localStorage.getItem("myList")
     ? JSON.parse(localStorage.getItem("myList"))
     : [];
+}
+
+const getDebounceDropdown = debounce((e) => {
+  getDropdown(e);
+});
+
+function debounce(callback, delay = 1000) {
+  let timeout;
+  return (...args) => {
+    //clear timeout each time i call this function
+    clearTimeout(timeout);
+    //create a new timeout
+    timeout = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
 }
 
 //?What I learnt from this:

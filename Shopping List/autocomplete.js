@@ -11,6 +11,7 @@ export const changeCurrentFocus = (newValue) => {
 //!When user types in to the input field, getSearches and open the dropdown results
 
 export const getDropdown = (e) => {
+  console.log("dropdown obtained");
   if (![37, 38, 39, 40, 13].includes(e.keyCode)) {
     let results = [];
     //get inputVal from the field
@@ -69,7 +70,7 @@ export const navigateDropdown = (e) => {
 };
 
 //the async keyword makes the function return a promise
-export const getSearches = async (userInput) => {
+const getSearches = async (userInput) => {
   const response = await fetch(
     `https://api.frontendeval.com/fake/food/${userInput}`
   );
@@ -79,7 +80,7 @@ export const getSearches = async (userInput) => {
 };
 
 //this functions adds focus to each item when selected in the dropdown
-export const addActive = (results) => {
+const addActive = (results) => {
   if (!results) return false;
   //start by removing all "active" class on all items
   results.forEach((result) => {
@@ -133,14 +134,4 @@ function selectItem(item) {
   dropdown.classList.remove("show");
   //put the focus on the input field, so you press enter then will submit the item
   input.focus();
-}
-
-function debounce(func, timeout = 300) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, timeout);
-  };
 }
