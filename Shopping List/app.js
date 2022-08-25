@@ -179,6 +179,7 @@ const getDebounceDropdown = debounce((e) => {
 
 function debounce(callback, delay = 1000) {
   let timeout;
+  //return a new function
   return (...args) => {
     //clear timeout each time i call this function
     clearTimeout(timeout);
